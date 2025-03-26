@@ -9,23 +9,23 @@ import {
 } from "react-native";
 import { styles } from "./styles";
 import { Participant } from "../../components/participant";
+import { useState } from "react";
 
 export function Home() {
-  const participants = [
-    "Estevão",
-    "Silva",
-    "Gomes",
-    "Bilua",
-    "Rodrigo",
-    "Vini",
-    "Diego",
-    "Biro",
-  ];
+  const [participants, setParticipants] = useState<string[]>([]);
+  const [participantName, setParticipantName] = useState("");
 
   function handleParticipante() {
-    if (participants.includes("Bilua")) {
+    if (participants.includes(participantName)) {
       return Alert.alert("Already Existe!", "Duplicate name participant");
     }
+
+    if (participantName === "") {
+      return Alert.alert("Not allowed!", "Name not set");
+    }
+
+    setParticipants((prevState) => [...prevState, participantName]);
+    setParticipantName("");
   }
 
   function handleParticipanteRemove(name: string) {
@@ -51,6 +51,8 @@ export function Home() {
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6b6b6b"
+          onChangeText={setParticipantName}
+          value={participantName}
         />
 
         <TouchableOpacity style={styles.button} onPress={handleParticipante}>
