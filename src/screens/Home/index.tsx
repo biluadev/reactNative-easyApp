@@ -85,6 +85,12 @@ export function Home() {
             onRemove={() => handleParticipanteRemove(item)}
           />
         )}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <Text style={styles.listEmptyText}>
+            Ninguém chegou no evento ainda...
+          </Text>
+        )}
       />
     </View>
   );
